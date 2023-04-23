@@ -1,6 +1,19 @@
 ## Dokumentacja API dla systemu zapisywania kursów walut
 
 1. Instalacja
+
+```sh
+git clone https://github.com/bpastuchewicz/krg.git
+cd krg
+mv .env.example .env 
+#Konfiguracja bazy danych w pliku .env
+composer install
+php artisan migrate
+php artisan serve
+```
+
+Teraz można korzystać z metod udostępnionych w API
+
 2. API
 
 2.1. POST */api/auth/register* - rejestracja użytkownika
