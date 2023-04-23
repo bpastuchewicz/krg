@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Roles
 {
+    private const ROLE_ADMIN = 'admin';
+    private const ROLE_USER = 'user';
     /**
      * Handle an incoming request.
      *
@@ -16,7 +18,7 @@ class Roles
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (!self::hasRole($request, $role)) {
+        if (!$this->hasRole($request, $role)) {
             return response()->json([
                 'status' => false,
                 'message' => 'validation error',
@@ -33,7 +35,7 @@ class Roles
      * @param string $role
      * @return boolean
      */
-    private static function hasRole(Request $request, string $role): bool
+    private function hasRole(Request $request, string $role): bool
     {
         $bearerToken = $request->bearerToken();
         if (empty($bearerToken)) {
@@ -42,6 +44,25 @@ class Roles
         $token = PersonalAccessToken::findToken($bearerToken);
         $user = $token->tokenable;
 
-        return $user->role === $role;
+        return $this->compareRole($user->role, $role);
     }
+
+    /**
+     *
+     * @param string $userRole
+     * @param string $checkedRole
+     * @return bool
+     */
+    private function compareRole(string $userRole, string $checkedRole): bool
+    {
+        if($userRole === self::ROLE_ADMIN) {
+            return true;
+        }
+        if($userRole === self::ROLE_USER && $checkedRole === self::ROLE_USER) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
