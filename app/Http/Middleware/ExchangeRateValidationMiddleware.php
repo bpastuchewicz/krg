@@ -83,9 +83,10 @@ class ExchangeRateValidationMiddleware
      */
     private function validateModel(Request $request): bool
     {
+        $date = $request->date ?? date('Y-m-d');
         return ExchangeRateModel::select('id')
             ->where('currency', '=', $request->currency)
-            ->where('date', '=', $request->date)
+            ->where('date', '=', $date)
             ->doesntExist();
     }
 }
