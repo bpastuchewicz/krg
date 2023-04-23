@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ExchangeRateController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Middleware\ExchangeRateValidationMiddleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +32,7 @@ Route::post('/exchange_rate',[ExchangeRateController::class, 'store'])
     ->middleware('validation.exchange_rate');
 
 
-Route::post('/auth/register', [AuthController::class, 'createUser']);
-Route::post('/auth/login', [AuthController::class, 'loginUser']);
+Route::post('/auth/register', [AuthController::class, 'createUser'])
+    ->middleware('validation.create_user');
+Route::post('/auth/login', [AuthController::class, 'loginUser'])
+    ->middleware('validation.login_user');
