@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ExchangeRateValidationMiddleware
 {
-    private const SUPPORTED_CURRENCIES = ['USD', 'GPB', 'EUR'];
+    private const SUPPORTED_CURRENCIES = ['USD', 'GBP', 'EUR'];
     /**
      * Handle an incoming request.
      *

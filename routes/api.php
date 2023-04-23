@@ -23,10 +23,13 @@ Route::get('/exchange_rates',[ExchangeRateController::class, 'index'])
 Route::get('/exchange_rates/{date}',[ExchangeRateController::class, 'index'])
     ->middleware('auth:sanctum')
     ->middleware('roles:user');
-Route::get('/exchange_rates/{currency}/{date}',[ExchangeRateController::class, 'show'])
+Route::get('/exchange_rate/{currency}',[ExchangeRateController::class, 'show'])
     ->middleware('auth:sanctum')
     ->middleware('roles:user');
-Route::post('/exchange_rates',[ExchangeRateController::class, 'store'])
+Route::get('/exchange_rate/{currency}/{date}',[ExchangeRateController::class, 'show'])
+    ->middleware('auth:sanctum')
+    ->middleware('roles:user');
+Route::post('/exchange_rate',[ExchangeRateController::class, 'store'])
     ->middleware('auth:sanctum')
     ->middleware('roles:admin')
     ->middleware('validation.exchange_rate');
